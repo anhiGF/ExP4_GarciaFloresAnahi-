@@ -10,6 +10,13 @@ public class Word {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     @NonNull
     @ColumnInfo(name = "word")
     private String mWord;
