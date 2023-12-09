@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final WordListAdapter adapter = new WordListAdapter(new WordListAdapter.WordDiff());
         recyclerView.setAdapter(adapter);
+        mAdapter = adapter;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mWordViewModel = new ViewModelProvider(this).get(WordViewModel.class);
@@ -46,12 +47,17 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+           public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String searchText = charSequence.toString().toLowerCase();
+                if (mAdapter == null) {
+                    mAdapter = new WordListAdapter(new WordListAdapter.WordDiff());
+                    recyclerView.setAdapter(mAdapter);
+                }
                 mWordViewModel.getFilteredWords(searchText).observe(MainActivity.this, words -> {
                     mAdapter.submitList(words);
                 });
             }
+
 
             @Override
             public void afterTextChanged(Editable editable) {
