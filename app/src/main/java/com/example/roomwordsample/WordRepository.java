@@ -34,4 +34,8 @@ class WordRepository {
             mWordDao.insert(word);
         });
     }
+
+    LiveData<List<Word>> getFilteredWords(String searchText) {
+        return mWordDao.searchWords("%" + searchText + "%");
+    }
 }

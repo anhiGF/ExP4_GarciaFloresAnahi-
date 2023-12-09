@@ -20,4 +20,8 @@ public interface WordDao {
 
     @Query("SELECT * FROM word_table ORDER BY word ASC")
     LiveData<List<Word>> getAlphabetizedWords();
+
+    @Query("SELECT * FROM word_table WHERE word LIKE :searchText ORDER BY word ASC")
+    LiveData<List<Word>> searchWords(String searchText);
+
 }
